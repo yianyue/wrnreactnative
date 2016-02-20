@@ -1,0 +1,23 @@
+{
+  "name": "wrnreactnative",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "babel-core": "6.4.5",
+    "babel-eslint": "^4.1.8",
+    "eslint-plugin-react": "^3.16.1",
+    "eslint-plugin-react-native": "^1.0.0",
+    "flux-standard-action": "^0.6.1",
+    "lodash-es": "^4.5.0",
+    "moment": "^2.11.2",
+    "qs": "^6.1.0",
+    "react-native": "^0.20.0",
+    "react-redux": "^4.4.0",
+    "redux": "^3.3.0",
+    "redux-logger": "^2.5.2",
+    "redux-thunk": "^1.0.3"
+  }
+}
