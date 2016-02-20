@@ -17,7 +17,6 @@ const initialState = {
 function getAuth(state = initialState.auth, action ){
   switch (action.type) {
     case 'expression':{
-
       break;
     }
     default:{
@@ -35,7 +34,6 @@ function getEntry(state = initialState.entry, action){
     default:{
       return state;
     }
-
   }
 }
 

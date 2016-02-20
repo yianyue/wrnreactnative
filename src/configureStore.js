@@ -7,11 +7,10 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducer from './redux/reducers/index';
 
-export default function configureStore(initialState) {
+export default function configureStore() {
 
   const store = createStore(
     reducer,
-    // initialState,
     applyMiddleware(thunkMiddleware, createLogger())
   );
 
