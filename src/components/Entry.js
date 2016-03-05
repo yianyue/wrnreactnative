@@ -5,7 +5,7 @@ const { PropTypes, View, Text, TouchableHighlight } = React;
 
 class Entry extends React.Component {
   static propTypes = {
-
+    list: PropTypes.arrayOf( PropTypes.object ),
   };
 
   render () {
@@ -13,9 +13,9 @@ class Entry extends React.Component {
       <View>
         <Text>
           Entry view!
-        </Text>      
+        </Text>
         <TouchableHighlight
-          onPress={() => { this.props.navigator.jumpBack() }}
+          onPress={() => { this.props.navigator.jumpBack(); }}
           style={{height: 30, justifyContent: 'center'}}
           >
           <Text style={{color: 'skyblue'}}>Back</Text>

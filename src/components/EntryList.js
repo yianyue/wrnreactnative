@@ -4,14 +4,22 @@ import React from 'react-native';
 const { PropTypes, View, Text, ListView, TouchableHighlight } = React;
 import Entry from './Entry';
 
+import { getEntries } from '../redux/actions/index';
+
 class EntryList extends React.Component {
   static propTypes = {
 
   };
 
-  // componentWillMount(){
+  constructor(props){
+    super(props);
+
+  }
+
+  componentWillMount(){
   //   console.log('EntryList mounting...')
-  // }
+    this.props.dispatch(getEntries());
+  }
 
   render () {
     // console.log('EntryList render...')
