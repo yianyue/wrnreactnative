@@ -17,7 +17,7 @@ class Home extends React.Component {
 
   constructor(props){
     super(props);
-    console.log('Home constructor entries', props.entries)
+    console.log('Home constructor entries', props.entries.length)
     if ( Platform.OS === 'android'){
       BackAndroid.addEventListener('hardwareBackPress', () => {
         try {
@@ -97,24 +97,21 @@ class TabBar extends React.Component {
   render(){
     let { entries } = this.props;
     return (
-      <View style={{flexDirection: 'row', height: 50, alignItems: 'stretch', justifyContent: 'space-around'}}>
+      <View style={{flexDirection: 'row', height: 50, alignItems: 'stretch', justifyContent: 'space-around', backgroundColor: '#111'}}>
         <TouchableHighlight
           onPress={() => { this.props.navigator.replace({ name: 'Entry List', component: EntryList, props: { entries }});} }
-          style={this.border('blue')}
           >
-          <Text>Go to EntryList</Text>
+          <Text style={{color: '#fff'}}>Go to EntryList</Text>
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => { this.props.navigator.replace({ name: 'Profile', component: Profile})}}
-          style={this.border('blue')}
           >
-          <Text>Go to Profile</Text>
+          <Text style={{color: '#fff'}}>Go to Profile</Text>
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => { this.props.navigator.replace({ name: 'Summary', component: Summary})}}
-          style={this.border('blue')}
           >
-          <Text>Go to Summary</Text>
+          <Text style={{color: '#fff'}}>Go to Summary</Text>
         </TouchableHighlight>
       </View>
     );

@@ -12,7 +12,7 @@ class EntryList extends React.Component {
   constructor(props){
     super(props);
     let { entries } = props;
-    console.log('EntryList entries', props.entries );
+    // console.log('EntryList entries', props.entries );
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(entries),
@@ -24,21 +24,35 @@ class EntryList extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log('EntryList receives next props', nextProps.entries)
+    // console.log('EntryList receives next props', nextProps.entries)
+    this.setState({
+      entries: this.state.dataSource.cloneWithRows(nextProps.entries)
+    });
   }
 
-  _renderEntry(entry){
+  _renderEntry = (entry) => {
     return (
-      <View style={{height: 100 }}>
-        <View>
-          <Text>{entry.id}</Text>
-        </View>
-        <View style={{flexDirection: 'column'}}>
-          <Text>{entry.preview}</Text>
-        </View>
-      </View>
-    )
-  }
+        <TouchableHighlight
+          onPress={() => {
+            this.props.navigator.push({
+              name: 'Entry Detail',
+              component: Entry,
+              props: {...entry}
+            });
+          }}
+          style={{ flexDirection: 'row', height: 100, paddingHorizontal: 10 }}
+          >
+          <View style={{ flex: 1 }}>
+            <View>
+              <Text>{entry.id}</Text>
+            </View>
+            <View style={{flexDirection: 'column', flex: 1}}>
+              <Text>{entry.preview}</Text>
+            </View>
+          </View>
+        </TouchableHighlight>
+    );
+  };
 
   render () {
     // console.log('EntryList render...')
@@ -47,12 +61,6 @@ class EntryList extends React.Component {
         <Text>
           EntryList view!
         </Text>
-        <TouchableHighlight
-          onPress={() => { this.props.navigator.push({ name: 'Entry Detail', component: Entry})}}
-          style={{height: 30, justifyContent: 'center'}}
-          >
-          <Text style={{color: 'skyblue'}}>Go to DetailView</Text>
-        </TouchableHighlight>
         <ListView
           style={{flex: 1}}
           dataSource={this.state.dataSource}

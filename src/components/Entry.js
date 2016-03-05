@@ -2,15 +2,22 @@
 
 import React from 'react-native';
 const { PropTypes, View, Text, TouchableHighlight } = React;
+import EntryInput from './EntryInput';
 
 class Entry extends React.Component {
   static propTypes = {
-    list: PropTypes.arrayOf( PropTypes.object ),
+    entry: PropTypes.object,
   };
 
+  constructor(props){
+    super(props);
+    let {navigator, ...rest} = props;
+  }
+
   render () {
+    let {navigator, ...rest} = this.props;
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Text>
           Entry view!
         </Text>
@@ -20,6 +27,9 @@ class Entry extends React.Component {
           >
           <Text style={{color: 'skyblue'}}>Back</Text>
         </TouchableHighlight>
+        <View style={{flex: 1}}>
+          <EntryInput {...rest} />
+        </View>
       </View>
     );
   }
