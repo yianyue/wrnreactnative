@@ -1,20 +1,24 @@
 'use strict';
 
 import {combineReducers} from 'redux';
+import {
+  ENTRIES_REQUEST,
+  ENTRIES_REQUEST_SUCCESS,
+  ENTRIES_REQUEST_FAIL,
+} from '../actions/index'
 
 const initialState = {
-  auth: {
-    user: null
-  },
+  user: null,
   entry: {
     list: [],
+    detail: null,
     loading: false,
     loaded: false,
     error: null
   }
 };
 
-function getAuth(state = initialState.auth, action ){
+function getUser(state = initialState.user, action ){
   switch (action.type) {
     case 'expression':{
       break;
@@ -26,10 +30,29 @@ function getAuth(state = initialState.auth, action ){
   }
 }
 
-function getEntry(state = initialState.entry, action){
+function getEntries(state = initialState.entry, action){
   switch (action.type) {
-    case 'expression':{
-      break;
+    case ENTRIES_REQUEST:{
+      return {
+        ...state,
+        loading: true
+      };
+    }
+    case ENTRIES_REQUEST_SUCCESS:{
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        list: action.result
+      };
+    }
+    case ENTRIES_REQUEST_FAIL:{
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: action.error
+      };
     }
     default:{
       return state;
@@ -38,8 +61,8 @@ function getEntry(state = initialState.entry, action){
 }
 
 const wrnApp = combineReducers({
-  auth: getAuth,
-  entry: getEntry
+  user: getUser,
+  entry: getEntries
 });
 
 export default wrnApp;

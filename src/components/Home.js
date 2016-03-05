@@ -1,6 +1,9 @@
 'use strict';
 
 import React from 'react-native';
+import { connect } from 'react-redux'
+import { getEntries } from '../redux/actions/index';
+
 const { PropTypes, View, Text, Navigator, TouchableHighlight, BackAndroid, Platform } = React;
 
 import EntryList from './EntryList';
@@ -14,7 +17,7 @@ class Home extends React.Component {
 
   constructor(props){
     super(props);
-
+    console.log('Home constructor entries', props.entries)
     if ( Platform.OS === 'android'){
       BackAndroid.addEventListener('hardwareBackPress', () => {
         try {
@@ -28,6 +31,15 @@ class Home extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log('Home.componentWillReceiveProps entries', nextProps.entries)
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch( getEntries() );
+  }
+
   border(color){
     return {
       borderWidth: 2,
@@ -35,12 +47,12 @@ class Home extends React.Component {
     };
   }
 
-  handleRenderScene( route, navigator ){
-    console.log('renderScene', navigator.getCurrentRoutes())
+  _handleRenderScene( route, navigator ) {
+    // console.log('renderScene', navigator.getCurrentRoutes())
     if (route.component){
-      return React.createElement(route.component, { navigator });
+      return React.createElement(route.component, { navigator, ...route.props });
     } else {
-      console.log('return home view')
+      // console.log('return to home view')
       return (
         <View>
           <Text>
@@ -58,9 +70,9 @@ class Home extends React.Component {
           <Navigator
             style={{flex: 1}}
             ref='navigator'
-            navigationBar={<TabBar/>}
+            navigationBar={<TabBar {...this.props }/>}
             initialRoute={{name: 'My First Scene'}}
-            renderScene={ this.handleRenderScene }
+            renderScene={ this._handleRenderScene }
             />
         </View>
       </View>
@@ -83,10 +95,11 @@ class TabBar extends React.Component {
   }
 
   render(){
+    let { entries } = this.props;
     return (
       <View style={{flexDirection: 'row', height: 50, alignItems: 'stretch', justifyContent: 'space-around'}}>
         <TouchableHighlight
-          onPress={() => { this.props.navigator.replace({ name: 'Entry List', component: EntryList})}}
+          onPress={() => { this.props.navigator.replace({ name: 'Entry List', component: EntryList, props: { entries }});} }
           style={this.border('blue')}
           >
           <Text>Go to EntryList</Text>
@@ -108,4 +121,12 @@ class TabBar extends React.Component {
   }
 }
 
-export default Home;
+function selectFnForApp(state){
+  let { entry, user } = state;
+  return {
+    user,
+    entries: entry.list
+  };
+}
+
+export default connect(selectFnForApp)(Home);

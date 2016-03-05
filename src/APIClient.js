@@ -2,7 +2,7 @@
 import superagent from 'superagent';
 import qs from 'qs';
 
-import { API_URL } from '../../constants';
+import { API_URL } from './constants';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
@@ -20,19 +20,21 @@ class ApiClient {
 
         return new Promise((resolve, reject) =>  {
 
-          const request = superagent[method](path);
+          const request = superagent[method](API_URL + path);
+
+          // console.log('URL path', API_URL + path)
 
           if ( params ){
-            console.log('APIClient', {params})
+            // console.log('APIClient', {params})
             request.query(qs.stringify(params));
           }
           if ( data ){
-            console.log('APIClient', {data})
+            // console.log('APIClient', {data})
             request.send(data);
           }
           if ( auth ){
-            console.log('APIClient', {auth})
-            request.set(auth); //set header
+            // console.log('APIClient', {auth})
+            request.set({...auth}); //set header
           }
 
           request.end((err, { body } = {}) => {

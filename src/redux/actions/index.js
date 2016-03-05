@@ -3,9 +3,11 @@
 import ApiClient from '../../APIClient';
 const apiClient = new ApiClient();
 
-const ENTRIES_REQUEST = 'ENTRIES_REQUEST',
-  ENTRIES_REQUEST_SUCCESS = 'ENTRIES_REQUEST_SUCCESS',
-  ENTRIES_REQUEST_FAIL = 'ENTRIES_REQUEST_FAIL';
+export const ENTRIES_REQUEST = 'ENTRIES_REQUEST';
+export const ENTRIES_REQUEST_SUCCESS = 'ENTRIES_REQUEST_SUCCESS';
+export const ENTRIES_REQUEST_FAIL = 'ENTRIES_REQUEST_FAIL';
+
+export { getEntries };
 
 function requestEntries(){
   return {
@@ -14,6 +16,7 @@ function requestEntries(){
 }
 
 function requestEntriesSuccess(result){
+  console.log('requestEntriesSuccess', result.length)
   return {
     type: ENTRIES_REQUEST_SUCCESS,
     result
@@ -21,6 +24,7 @@ function requestEntriesSuccess(result){
 }
 
 function requestEntriesFail(error){
+  console.log('requestEntriesFail', {error})
   return {
     type: ENTRIES_REQUEST_FAIL,
     error
@@ -28,11 +32,12 @@ function requestEntriesFail(error){
 }
 
 function getEntries(params) {
+
   return (dispatch, getState) => {
 
     dispatch(requestEntries());
 
-    apiClient.get('/entries', {params}, getState)
+    apiClient.get('/entries', {params} )
     .then( result => {
       dispatch(requestEntriesSuccess(result));
     })
@@ -42,5 +47,3 @@ function getEntries(params) {
   };
 
 }
-
-export { getEntries };
