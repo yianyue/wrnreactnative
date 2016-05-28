@@ -1,16 +1,18 @@
 'use strict';
 
-import React, { Component } from 'react-native';
+import React from 'react';
+
+import ReactNative from 'react-native';
 
 import { Provider } from 'react-redux';
 
-import Home from './components/Home';
+import Main from './containers/Main';
 
 import configureStore from './configureStore';
 
 let store;
 
-export default class App extends Component {
+export default class App extends React.Component {
 
   constructor(props){
     super(props);
@@ -29,7 +31,7 @@ export default class App extends Component {
 
     return (
       <Provider store={store}>
-        <Home loading={this.state.isLoading}  />
+        <Main  />
       </Provider>
     );
   }

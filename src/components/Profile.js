@@ -1,7 +1,8 @@
 'use strict';
 
-import React from 'react-native';
-const { PropTypes, View, Text } = React;
+import React, { PropTypes } from 'react';
+import ReactNative from 'react-native';
+const { View, Text } = ReactNative;
 
 class Profile extends React.Component {
   static propTypes = {

@@ -10,7 +10,7 @@ const AUTH = {
   email:'kafka@gmail.com',
   name:'Franz',
   // 'goal':500,
-  token:'d50b18f2-dd90-4b3f-ac10-5937ba4a3dc3'
+  token:'8dd95a7f-cd5d-4f56-aadb-b8a41e350769'
 };
 
 class ApiClient {
@@ -34,7 +34,7 @@ class ApiClient {
           }
           if ( auth ){
             // console.log('APIClient', {auth})
-            request.set({...auth}); //set header
+            request.set(auth); //set header
           }
 
           request.end((err, { body } = {}) => {

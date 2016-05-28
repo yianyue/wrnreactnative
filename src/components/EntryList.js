@@ -1,10 +1,17 @@
 'use strict';
 
-import React from 'react-native';
-const { PropTypes, View, Text, ListView, TouchableHighlight } = React;
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
+
+import {
+  View, Text, ListView, TouchableHighlight
+} from 'react-native';
+
 import Entry from './Entry';
 
-class EntryList extends React.Component {
+class EntryList extends Component {
   static propTypes = {
     entries: PropTypes.array
   };
@@ -59,7 +66,7 @@ class EntryList extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Text>
-          EntryList view!
+          Entry List view!
         </Text>
         <ListView
           style={{flex: 1}}

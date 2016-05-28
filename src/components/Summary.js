@@ -1,9 +1,15 @@
 'use strict';
 
-import React from 'react-native';
-const { PropTypes, View, Text } = React;
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
 
-class Summary extends React.Component {
+import {
+  View, Text
+} from 'react-native';
+
+class Summary extends Component {
   static propTypes = {
 
   };

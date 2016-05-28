@@ -1,10 +1,17 @@
 'use strict';
 
-import React from 'react-native';
-const { PropTypes, View, Text, TouchableHighlight } = React;
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
+
+import {
+  View, Text, TouchableHighlight
+} from 'react-native';
+
 import EntryInput from './EntryInput';
 
-class Entry extends React.Component {
+class Entry extends Component {
   static propTypes = {
     entry: PropTypes.object,
   };

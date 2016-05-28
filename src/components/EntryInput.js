@@ -1,10 +1,18 @@
 'use strict';
-import React from 'react-native';
-const { PropTypes, View, ScrollView, Text, TextInput } = React;
+
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
+
+import {
+  View, ScrollView, Text, TextInput
+} from 'react-native';
+
 
 const DEFAULT_INPUT_BOX_HEIGHT = 80;
 
-class EntryInput extends React.Component {
+class EntryInput extends Component {
 
   constructor(props){
     super(props);

@@ -1,6 +1,16 @@
 'use strict';
 
-import React from 'react-native';
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
+
+import {
+  Platform,
+  BackAndroid,
+  NavigationExperimental,
+} from 'react-native';
+
 import { connect } from 'react-redux'
 import { getEntries } from '../redux/actions/index';
 
@@ -10,26 +20,12 @@ import EntryList from './EntryList';
 import Profile from './Profile';
 import Summary from './Summary';
 
-class Home extends React.Component {
+class Home extends Component {
   static propTypes = {
 
   };
 
-  constructor(props){
-    super(props);
-    console.log('Home constructor entries', props.entries.length)
-    if ( Platform.OS === 'android'){
-      BackAndroid.addEventListener('hardwareBackPress', () => {
-        try {
-          this.refs.navigator.pop();
-          return true;
-        }
-        catch (err) {
-          return false;
-        }
-      });
-    }
-  }
+
 
   componentWillReceiveProps(nextProps){
     console.log('Home.componentWillReceiveProps entries', nextProps.entries)
