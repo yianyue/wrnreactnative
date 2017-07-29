@@ -5,7 +5,7 @@ import {
   ENTRIES_REQUEST,
   ENTRIES_REQUEST_SUCCESS,
   ENTRIES_REQUEST_FAIL,
-} from '../actions/index'
+} from '../actions/index';
 
 const initialState = {
   user: null,
@@ -18,27 +18,26 @@ const initialState = {
   }
 };
 
-function getUser(state = initialState.user, action ){
+function getUser (state = initialState.user, action) {
   switch (action.type) {
-    case 'expression':{
+    case 'expression': {
       break;
     }
-    default:{
+    default: {
       return state;
     }
-
   }
 }
 
-function getEntries(state = initialState.entry, action){
+function getEntries (state = initialState.entry, action) {
   switch (action.type) {
-    case ENTRIES_REQUEST:{
+    case ENTRIES_REQUEST: {
       return {
         ...state,
         loading: true
       };
     }
-    case ENTRIES_REQUEST_SUCCESS:{
+    case ENTRIES_REQUEST_SUCCESS: {
       return {
         ...state,
         loading: false,
@@ -46,7 +45,7 @@ function getEntries(state = initialState.entry, action){
         list: action.result
       };
     }
-    case ENTRIES_REQUEST_FAIL:{
+    case ENTRIES_REQUEST_FAIL: {
       return {
         ...state,
         loading: false,
@@ -54,7 +53,7 @@ function getEntries(state = initialState.entry, action){
         error: action.error
       };
     }
-    default:{
+    default: {
       return state;
     }
   }

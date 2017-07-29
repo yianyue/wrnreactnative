@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import React, {
   Component,
@@ -9,8 +9,8 @@ import {
   Text,
 } from 'react-native';
 
-class CText extends Component {
-  render() {
+export default class CText extends Component {
+  render () {
     let {children, ...otherProps} = this.props;
     return (
       <Text {...otherProps}>
@@ -19,5 +19,3 @@ class CText extends Component {
     );
   }
 }
-
-export default CText;

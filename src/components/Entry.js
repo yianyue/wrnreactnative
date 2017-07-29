@@ -11,14 +11,13 @@ import {
 
 import EntryInput from './EntryInput';
 
-class Entry extends Component {
+export default class Entry extends Component {
   static propTypes = {
     entry: PropTypes.object,
   };
 
-  constructor(props){
+  constructor (props) {
     super(props);
-    let {navigator, ...rest} = props;
   }
 
   render () {
@@ -31,7 +30,7 @@ class Entry extends Component {
         <TouchableHighlight
           onPress={() => { this.props.navigator.jumpBack(); }}
           style={{height: 30, justifyContent: 'center'}}
-          >
+        >
           <Text style={{color: 'skyblue'}}>Back</Text>
         </TouchableHighlight>
         <View style={{flex: 1}}>
@@ -41,5 +40,3 @@ class Entry extends Component {
     );
   }
 }
-
-export default Entry;
