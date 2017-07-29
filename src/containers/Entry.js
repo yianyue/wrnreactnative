@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import React, {
   Component,
@@ -12,7 +12,14 @@ import {
 } from 'react-native';
 
 class Entry extends Component {
-  render() {
+  static navigationOptions = {
+    title: 'Entry'
+  };
+  render () {
+    const { params } = this.props.navigation.state;
+
+    console.log({params});
+
     return (
       <View>
         <Text>Entry</Text>

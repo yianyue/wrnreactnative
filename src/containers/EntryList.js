@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import React, {
   Component,
@@ -11,12 +11,23 @@ import {
   Text,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
+import { getEntries } from '../redux/actions';
+
 class EntryList extends Component {
-  render() {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
+  render () {
+    const { navigate } = this.props.navigation;
+    // console.log(this.props.user, this.props.entry);
     return (
       <View>
         <Text>EntryList</Text>
-        <TouchableOpacity onPress={() => this.props.onNavigate({type: 'push', key: 'Entry', data: {id: 111}})}>
+        <TouchableOpacity
+          onPress={() => navigate('Entry', { id: 'Lucy' })}
+        >
           <Text>Go to Entry</Text>
         </TouchableOpacity>
         <Text>data: {JSON.stringify(this.props.data)}</Text>
@@ -25,4 +36,12 @@ class EntryList extends Component {
   }
 }
 
-export default EntryList;
+export default connect(
+  (state) => ({
+    user: state.user,
+    entry: state.entry
+  }),
+  (dispatch) => ({
+    loadEntries: () => dispatch(getEntries())
+  })
+)(EntryList);
