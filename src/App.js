@@ -13,25 +13,23 @@ import configureStore from './configureStore';
 let store;
 
 export default class App extends React.Component {
-
-  constructor(props){
+  constructor (props) {
     super(props);
     this.state = {
       isLoading: true
     };
   }
 
-  componentWillMount(){
+  componentWillMount () {
     store = configureStore(() => {
       this.setState({isLoading: false});
     });
   }
 
-  render() {
-
+  render () {
     return (
       <Provider store={store}>
-        <Main  />
+        <Main />
       </Provider>
     );
   }
