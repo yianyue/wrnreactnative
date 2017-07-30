@@ -7,50 +7,45 @@ import { API_URL } from './constants';
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 const AUTH = {
-  email:'kafka@gmail.com',
-  name:'Franz',
+  email: 'kafka@gmail.com',
+  name: 'Franz',
   // 'goal':500,
-  token:'8dd95a7f-cd5d-4f56-aadb-b8a41e350769'
+  token: '8dd95a7f-cd5d-4f56-aadb-b8a41e350769'
 };
 
 class ApiClient {
-  constructor(req){
+  constructor (req) {
     methods.forEach((method) => {
-      this[method] = (path, {params, data} = {}, auth = AUTH ) => {
-
-        return new Promise((resolve, reject) =>  {
-
+      this[method] = (path, {params, data} = {}, auth = AUTH) => {
+        return new Promise((resolve, reject) => {
           const request = superagent[method](API_URL + path);
 
           // console.log('URL path', API_URL + path)
 
-          if ( params ){
+          if (params) {
             // console.log('APIClient', {params})
             request.query(qs.stringify(params));
           }
-          if ( data ){
+          if (data) {
             // console.log('APIClient', {data})
             request.send(data);
           }
-          if ( auth ){
+          if (auth) {
             // console.log('APIClient', {auth})
-            request.set(auth); //set header
+            request.set(auth); // set header
           }
 
           request.end((err, { body } = {}) => {
-            if (err){
-              reject( err );
+            if (err) {
+              console.log({path, err});
+              reject(err);
             } else {
-              resolve( body );
+              resolve(body);
             }
           });
-
         });
-
       };
-
     });
-
   }
 }
 

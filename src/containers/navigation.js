@@ -4,16 +4,20 @@ import {
   StackNavigator,
 } from 'react-navigation';
 
-import Home from './Home';
 import EntryList from './EntryList';
 import Entry from './Entry';
 import Profile from './Profile';
 
-const Main = StackNavigator({
-  Home: { screen: Home },
+import Login from './Login';
+
+const Authenticated = StackNavigator({
   EntryList: { screen: EntryList },
   Entry: { screen: Entry },
   Profile: { screen: Profile }
 });
 
-export default Main;
+const Unauthenticated = StackNavigator({
+  Login: { screen: Login }
+});
+
+export {Authenticated, Unauthenticated};

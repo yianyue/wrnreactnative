@@ -6,7 +6,7 @@ import ReactNative from 'react-native';
 
 import { Provider } from 'react-redux';
 
-import Main from './containers/Main';
+import Home from './containers/Home';
 
 import configureStore from './configureStore';
 
@@ -29,7 +29,7 @@ export default class App extends React.Component {
   render () {
     return (
       <Provider store={store}>
-        <Main />
+        <Home isLoading={this.state.isLoading} />
       </Provider>
     );
   }

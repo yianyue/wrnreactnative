@@ -2,7 +2,7 @@
 
 import React, {
   Component,
-  PropTypes,
+  PropTypes
 } from 'react';
 
 import {
@@ -13,12 +13,17 @@ import {
 
 import { connect } from 'react-redux';
 
-import { getEntries } from '../redux/actions';
+import { getEntries } from '../redux/actions/entry';
 
 class EntryList extends Component {
   static navigationOptions = {
-    title: 'Welcome',
+    title: 'Write Right Now!',
   };
+
+  componentDidMount () {
+    this.props.loadEntries();
+  }
+
   render () {
     const { navigate } = this.props.navigation;
     // console.log(this.props.user, this.props.entry);
@@ -38,7 +43,7 @@ class EntryList extends Component {
 
 export default connect(
   (state) => ({
-    user: state.user,
+    user: state.session.user,
     entry: state.entry
   }),
   (dispatch) => ({
