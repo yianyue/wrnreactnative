@@ -13,10 +13,11 @@ class EntryInput extends Component {
   render () {
     return (
       <TextInput
-        style={{ flex: 1 }}
-        multiline={true}
+        style={{ flex: 1, textAlignVertical: 'top' }}
         autoCorrect={false}
-        onChange={ this._handleChange }
+        autoFocus
+        multiline
+        onChangeText={ this.props.onChangeText }
         value={this.props.value}
         underlineColorAndroid={'transparent'}
       />

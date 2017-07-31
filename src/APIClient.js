@@ -7,10 +7,10 @@ import { API_URL } from './constants';
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 const AUTH = {
-  email: 'kafka@gmail.com',
-  name: 'Franz',
-  // 'goal':500,
-  token: '8dd95a7f-cd5d-4f56-aadb-b8a41e350769'
+  // email: 'kafka@gmail.com',
+  // name: 'Franz',
+  // // 'goal':500,
+  // token: '8dd95a7f-cd5d-4f56-aadb-b8a41e350769'
 };
 
 class ApiClient {
@@ -38,7 +38,7 @@ class ApiClient {
           request.end((err, { body } = {}) => {
             if (err) {
               console.log({path}, err.message, body, auth);
-              reject(body.error || err);
+              reject((body && body.error) || err);
             } else {
               resolve(body);
             }
