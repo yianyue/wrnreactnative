@@ -6,76 +6,60 @@ import React, {
 } from 'react';
 
 import {
-  View, Text, ListView, TouchableHighlight
+  View, Text, FlatList, TouchableHighlight
 } from 'react-native';
 
-import Entry from './Entry';
+import moment from 'moment';
 
-class EntryList extends Component {
+class EntryListView extends Component {
   static propTypes = {
     entries: PropTypes.array
   };
 
-  constructor(props){
-    super(props);
-    let { entries } = props;
-    // console.log('EntryList entries', props.entries );
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(entries),
-    };
-  }
-
-  componentWillMount(){
-    //   console.log('EntryList mounting...')
-  }
-
-  componentWillReceiveProps(nextProps){
-    // console.log('EntryList receives next props', nextProps.entries)
-    this.setState({
-      entries: this.state.dataSource.cloneWithRows(nextProps.entries)
-    });
-  }
-
-  _renderEntry = (entry) => {
+  _renderEntry = ({item: entry}) => {
     return (
-        <TouchableHighlight
-          onPress={() => {
-            this.props.navigator.push({
-              name: 'Entry Detail',
-              component: Entry,
-              props: {...entry}
-            });
-          }}
-          style={{ flexDirection: 'row', height: 100, paddingHorizontal: 10 }}
-          >
-          <View style={{ flex: 1 }}>
-            <View>
-              <Text>{entry.id}</Text>
-            </View>
-            <View style={{flexDirection: 'column', flex: 1}}>
-              <Text>{entry.preview}</Text>
-            </View>
+      <TouchableHighlight
+        onPress={() => this.props.onItemPress(entry)}
+        style={{ flexDirection: 'row', height: 100, padding: 10, backgroundColor: entry.locked ? 'gray' : 'white' }}
+      >
+        <View style={{ flex: 1 }}>
+          <View>
+            <Text>{moment(entry.created_at).format('dddd, MMMM Do YYYY')}</Text>
           </View>
-        </TouchableHighlight>
+          <View style={{flexDirection: 'column', flex: 1}}>
+            <Text>{entry.preview}</Text>
+          </View>
+        </View>
+      </TouchableHighlight>
     );
   };
 
+  _renderSeparator = ({highlighted}) => <View style={{height: 2, backgroundColor: 'transparent'}} />
+
+  _keyExtractor = (item) => item.id;
+
   render () {
-    // console.log('EntryList render...')
+    // console.log('EntryListView render...')
+    const { loading, list, error } = this.props.entry;
+    if (!loading && error) {
+      return (
+        <View>
+          <Text>Error: {error}</Text>
+        </View>
+      );
+    }
     return (
-      <View style={{flex: 1}}>
-        <Text>
-          Entry List view!
-        </Text>
-        <ListView
-          style={{flex: 1}}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderEntry}
-          />
-      </View>
+      <FlatList
+        data={list}
+        renderItem={this._renderEntry}
+        ItemSeparatorComponent={this._renderSeparator}
+        keyExtractor={this._keyExtractor}
+        onRefresh={this.props.onRefresh}
+        refreshing={loading}
+        // onEndReached={this.props.onEndReached}
+      />
     );
   }
 }
 
-export default EntryList;
+export default EntryListView;

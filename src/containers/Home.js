@@ -1,9 +1,6 @@
 'use strict';
 
-import React, {
-  Component,
-  PropTypes
-} from 'react';
+import React, { Component } from 'react';
 
 import {
   View,
@@ -17,7 +14,6 @@ import { connect } from 'react-redux';
 class Home extends Component {
   render () {
     const { isLoading, user } = this.props;
-    console.log(this.constructor.name, isLoading, user);
     if (isLoading) {
       return (
         <View>

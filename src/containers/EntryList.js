@@ -5,38 +5,44 @@ import React, {
   PropTypes
 } from 'react';
 
-import {
-  View,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-
 import { connect } from 'react-redux';
 
 import { getEntries } from '../redux/actions/entry';
+import { logout } from '../redux/actions/session';
+
+import { Button } from 'react-native';
+import EntryListView from '../components/EntryList';
 
 class EntryList extends Component {
-  static navigationOptions = {
-    title: 'Write Right Now!',
+  static navigationOptions = ({navigation}) => {
+    const {params = {}} = navigation.state;
+    return {
+      headerRight: <Button title={'Logout'} onPress={params.logout} />,
+    };
   };
 
   componentDidMount () {
-    this.props.loadEntries();
+    this.props.getEntries(false);
+    this.props.navigation.setParams({
+      logout: this.props.logout
+    });
+  }
+
+  _goToDetail = (entry) => {
+    if (entry.locked) {
+      alert('Entry Locked! Complete your writing goal to unlock');
+    } else {
+      this.props.navigation.navigate('Entry', entry);
+    }
   }
 
   render () {
-    const { navigate } = this.props.navigation;
-    // console.log(this.props.user, this.props.entry);
     return (
-      <View>
-        <Text>EntryList</Text>
-        <TouchableOpacity
-          onPress={() => navigate('Entry', { id: 'Lucy' })}
-        >
-          <Text>Go to Entry</Text>
-        </TouchableOpacity>
-        <Text>data: {JSON.stringify(this.props.data)}</Text>
-      </View>
+      <EntryListView
+        entry={this.props.entry}
+        onRefresh={this.props.getEntries}
+        onItemPress={this._goToDetail}
+      />
     );
   }
 }
@@ -46,7 +52,8 @@ export default connect(
     user: state.session.user,
     entry: state.entry
   }),
-  (dispatch) => ({
-    loadEntries: () => dispatch(getEntries())
-  })
+  {
+    getEntries,
+    logout
+  }
 )(EntryList);

@@ -7,21 +7,19 @@ import {
 } from '../actions/index';
 
 const initialState = {
-  user: null,
-  entry: {
-    list: [],
-    detail: null,
-    loading: false,
-    loaded: false,
-    error: null
-  }
+  list: [],
+  detail: null,
+  loading: false,
+  loaded: false,
+  error: null
 };
 
-function getEntries (state = initialState.entry, action) {
+function getEntries (state = initialState, action) {
   switch (action.type) {
     case ENTRIES_REQUEST: {
       return {
         ...state,
+        error: null,
         loading: true
       };
     }

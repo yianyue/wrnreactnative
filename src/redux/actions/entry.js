@@ -26,11 +26,11 @@ function requestEntriesFail (error) {
   };
 }
 
-function getEntries (params) {
+function getEntries () {
   return (dispatch, getState) => {
     dispatch(requestEntries());
-    const { user } = getState();
-    apiClient.get('/entries', {params}, user)
+    const { session: {user} } = getState();
+    apiClient.get('/entries', {}, user)
       .then(result => {
         dispatch(requestEntriesSuccess(result));
       })

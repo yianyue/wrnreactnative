@@ -1,7 +1,7 @@
 'use strict';
 
 import {
-  StackNavigator,
+  StackNavigator
 } from 'react-navigation';
 
 import EntryList from './EntryList';
@@ -10,14 +10,30 @@ import Profile from './Profile';
 
 import Login from './Login';
 
+const defaultNavigationOptions = {
+  title: 'Write Right Now!'
+};
+
 const Authenticated = StackNavigator({
-  EntryList: { screen: EntryList },
-  Entry: { screen: Entry },
-  Profile: { screen: Profile }
+  EntryList: {
+    screen: EntryList,
+    navigationOptions: defaultNavigationOptions
+  },
+  Entry: {
+    screen: Entry,
+    navigationOptions: defaultNavigationOptions
+  },
+  Profile: {
+    screen: Profile,
+    navigationOptions: defaultNavigationOptions
+  }
 });
 
 const Unauthenticated = StackNavigator({
-  Login: { screen: Login }
+  Login: {
+    screen: Login,
+    navigationOptions: defaultNavigationOptions
+  }
 });
 
 export {Authenticated, Unauthenticated};

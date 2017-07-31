@@ -5,34 +5,41 @@ import React, {
   PropTypes,
 } from 'react';
 
-import {
-  View,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import { connect } from 'react-redux';
+
+import { getEntryDetail } from '../redux/actions/entryDetail';
+
+import EntryView from '../components/Entry';
 
 class Entry extends Component {
   static navigationOptions = {
-    title: 'Entry'
+    // title: should be the date
   };
+
+  componentDidMount () {
+    const id = this.props.navigation.state.params.id;
+    this.props.getEntryDetail(id);
+  }
+
   render () {
-    const { params } = this.props.navigation.state;
-
-    console.log({params});
-
+    const id = this.props.navigation.state.params.id;
+    const entry = this.props.entryDetail[id];
+    console.log(this.constructor.name, entry);
     return (
-      <View>
-        <Text>Entry</Text>
-        <TouchableOpacity onPress={() => this.props.onNavigate({type: 'back'})}>
-          <Text>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.onNavigate({type: 'push', key: 'Profile', data: {profileID: 222}})}>
-          <Text>go to Profile</Text>
-        </TouchableOpacity>
-        <Text>data: {JSON.stringify(this.props.data)}</Text>
-      </View>
+      <EntryView
+        id={id}
+        entry={entry}
+      />
     );
   }
 }
 
-export default Entry;
+export default connect(
+  (state) => ({
+    user: state.session.user,
+    entryDetail: state.entryDetail
+  }),
+  (dispatch) => ({
+    getEntryDetail: (id) => dispatch(getEntryDetail(id))
+  })
+)(Entry);
