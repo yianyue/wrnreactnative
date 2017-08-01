@@ -13,7 +13,7 @@ class EntryInput extends Component {
   render () {
     return (
       <TextInput
-        style={{ flex: 1, textAlignVertical: 'top' }}
+        style={{ flex: 1, textAlignVertical: 'top', backgroundColor: 'white', padding: 15 }}
         autoCorrect={false}
         autoFocus
         multiline

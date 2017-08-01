@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import ReactNative from 'react-native';
+import { Text } from 'react-native';
 
 import { Provider } from 'react-redux';
 
@@ -16,7 +16,8 @@ export default class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      hasError: false
     };
   }
 
@@ -26,7 +27,17 @@ export default class App extends React.Component {
     });
   }
 
+  componentDidCatch (error, info) {
+  // Display fallback UI
+    this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+  }
+
   render () {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <Text>Something went wrong.</Text>;
+    }
     return (
       <Provider store={store}>
         <Home isLoading={this.state.isLoading} />

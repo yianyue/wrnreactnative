@@ -21,7 +21,6 @@ const Authenticated = StackNavigator({
   },
   Entry: {
     screen: Entry,
-    navigationOptions: defaultNavigationOptions
   },
   Profile: {
     screen: Profile,

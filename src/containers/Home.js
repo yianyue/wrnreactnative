@@ -23,7 +23,7 @@ class Home extends Component {
     }
 
     if (user) {
-      return <Authenticated />;
+      return <Authenticated onNavigationStateChange={null} />;
     } else {
       return <Unauthenticated />;
     }

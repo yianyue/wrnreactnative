@@ -10,15 +10,19 @@ import { connect } from 'react-redux';
 import { getEntries } from '../redux/actions/entry';
 import { logout } from '../redux/actions/session';
 
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
 import EntryListView from '../components/EntryList';
 
 class EntryList extends Component {
   static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
-    return {
-      headerRight: <Button title={'Logout'} onPress={params.logout} />,
-    };
+    if (params.logout) {
+      return {
+        headerRight: <View style={{marginRight: 10}}><Button title={'Logout'} onPress={params.logout} /></View>,
+      };
+    } else {
+      return {};
+    }
   };
 
   componentDidMount () {

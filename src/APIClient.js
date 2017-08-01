@@ -38,7 +38,8 @@ class ApiClient {
           request.end((err, { body } = {}) => {
             if (err) {
               console.log({path}, err.message, body, auth);
-              reject((body && body.error) || err);
+              const errorMessage = (body && body.error) || (err.message) || 'DEBUG: Something went wrong :( Check log for details';
+              reject(errorMessage);
             } else {
               resolve(body);
             }

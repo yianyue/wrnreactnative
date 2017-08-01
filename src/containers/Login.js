@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Button, TextInput, StyleSheet } from 'react-native';
 
 import { connect } from 'react-redux';
 import { login } from '../redux/actions/session';
@@ -26,9 +26,6 @@ class Login extends React.Component {
   render () {
     return (
       <View>
-        <Text>
-          Login view!
-        </Text>
         <TextInput
           style={styles.input}
           placeholder={'Email'}
@@ -47,6 +44,7 @@ class Login extends React.Component {
           onChangeText={this._updateInput('password')}
           onSubmitEditing={this._submit}
         />
+        <Button onPress={this._submit} disabled={!this.state.email || !this.state.password} title={'Login'} />
       </View>
     );
   }

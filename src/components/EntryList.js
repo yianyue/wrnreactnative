@@ -41,10 +41,11 @@ class EntryListView extends Component {
   render () {
     // console.log('EntryListView render...')
     const { loading, list, error } = this.props.entry;
+    const errorMessage = typeof error === 'string' ? error : 'something went wrong';
     if (!loading && error) {
       return (
         <View>
-          <Text>Error: {error}</Text>
+          <Text>Error: {errorMessage}</Text>
         </View>
       );
     }
