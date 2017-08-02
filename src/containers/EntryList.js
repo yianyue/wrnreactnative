@@ -18,7 +18,7 @@ class EntryList extends Component {
     const {params = {}} = navigation.state;
     if (params.logout) {
       return {
-        headerRight: <View style={{marginRight: 10}}><Button title={'Logout'} onPress={params.logout} /></View>,
+        headerRight: <View style={{marginRight: 10}}><Button title={'Logout'} onPress={params.logout} color={'#000'} /></View>,
       };
     } else {
       return {};

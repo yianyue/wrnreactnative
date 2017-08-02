@@ -1,10 +1,13 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-import { View, Button, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, StatusBar } from 'react-native';
+import CButton from '../components/common/CButton';
 
 import { connect } from 'react-redux';
 import { login } from '../redux/actions/session';
+
+import { MAIN_COLOR } from '../styleConstants';
 
 class Login extends React.Component {
   static propTypes = {
@@ -24,14 +27,20 @@ class Login extends React.Component {
   _submit = () => this.props.login(this.state);
 
   render () {
+    const {loggingIn} = this.props;
     return (
-      <View>
+      <View style={styles.container}>
+        <StatusBar
+          backgroundColor={MAIN_COLOR}
+          barStyle="light-content"
+        />
         <TextInput
           style={styles.input}
           placeholder={'Email'}
           keyboardType={'email-address'}
           returnKeyType={'next'}
-          // underlineColorAndroid
+          underlineColorAndroid={'transparent'}
+          tintColor={'red'}
           onChangeText={this._updateInput('email')}
           onSubmitEditing={() => this._passwordField && this._passwordField.focus()}
         />
@@ -40,19 +49,32 @@ class Login extends React.Component {
           style={styles.input}
           placeholder={'Password'}
           returnKeyType={'done'}
+          underlineColorAndroid={'transparent'}
+          tintColor={MAIN_COLOR}
           secureTextEntry
           onChangeText={this._updateInput('password')}
           onSubmitEditing={this._submit}
         />
-        <Button onPress={this._submit} disabled={!this.state.email || !this.state.password} title={'Login'} />
+        <CButton onPress={this._submit} disabled={!this.state.email || !this.state.password || loggingIn} title={'LOGIN'} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    paddingHorizontal: 20
+  },
   input: {
-    // borderWidth: 1
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 25,
+    paddingHorizontal: 25,
+    marginBottom: 10
   }
 });
 

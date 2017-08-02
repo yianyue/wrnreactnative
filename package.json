@@ -7,17 +7,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "babel-core": "6.4.5",
-    "babel-eslint": "^7.2.3",
-    "eslint": "^4.3.0",
-    "eslint-config-semistandard": "^11.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.1.0",
-    "eslint-plugin-react-native": "^3.0.1",
-    "eslint-plugin-standard": "^3.0.1",
     "moment": "^2.11.2",
     "qs": "^6.1.0",
     "react": "16.0.0-alpha.12",
@@ -29,6 +18,19 @@
     "redux-persist": "^4.8.2",
     "redux-thunk": "^1.0.3",
     "superagent": "^1.7.2"
+  },
+  "devDependencies": {
+    "babel-core": "6.4.5",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react-native": "^3.0.1",
+    "eslint-plugin-standard": "^3.0.1"
   },
   "main": "index.js",
   "repository": "git@github.com:yianyue/wrnreactnative.git",

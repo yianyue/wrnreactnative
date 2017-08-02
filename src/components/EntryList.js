@@ -6,10 +6,12 @@ import React, {
 } from 'react';
 
 import {
-  View, Text, FlatList, TouchableHighlight
+  View, Text, FlatList, TouchableHighlight, StyleSheet
 } from 'react-native';
 
 import moment from 'moment';
+
+import { getErrorMessage } from '../helpers';
 
 class EntryListView extends Component {
   static propTypes = {
@@ -17,31 +19,33 @@ class EntryListView extends Component {
   };
 
   _renderEntry = ({item: entry}) => {
+    const createdAt = moment(entry.created_at);
     return (
-      <TouchableHighlight
-        onPress={() => this.props.onItemPress(entry)}
-        style={{ flexDirection: 'row', height: 100, padding: 10, backgroundColor: entry.locked ? 'gray' : 'white' }}
-      >
-        <View style={{ flex: 1 }}>
-          <View>
-            <Text>{moment(entry.created_at).format('dddd, MMMM Do YYYY')}</Text>
-          </View>
-          <View style={{flexDirection: 'column', flex: 1}}>
-            <Text>{entry.preview}</Text>
-          </View>
+      <View style={styles.row}>
+        <View style={styles.left}>
+          <Text>{createdAt.format('MMM')}</Text>
+          <Text style={styles.date}>{createdAt.format('D')}</Text>
+          <Text>{createdAt.format('ddd')}</Text>
         </View>
-      </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => this.props.onItemPress(entry)}
+          style={[styles.card, entry.locked && styles.locked]}
+          underlayColor={'pink'}
+        >
+          <Text>{entry.preview}</Text>
+        </TouchableHighlight>
+      </View>
     );
   };
 
-  _renderSeparator = ({highlighted}) => <View style={{height: 2, backgroundColor: 'transparent'}} />
+  _renderSeparator = ({highlighted}) => <View style={styles.separator} />
 
   _keyExtractor = (item) => item.id;
 
   render () {
     // console.log('EntryListView render...')
     const { loading, list, error } = this.props.entry;
-    const errorMessage = typeof error === 'string' ? error : 'something went wrong';
+    const errorMessage = getErrorMessage(error);
     if (!loading && error) {
       return (
         <View>
@@ -62,5 +66,34 @@ class EntryListView extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  separator: {
+    height: 2,
+    backgroundColor: 'transparent'
+  },
+  row: {
+    flexDirection: 'row',
+    marginVertical: 10
+  },
+  left: {
+    alignItems: 'center',
+    flex: 0.1,
+    paddingHorizontal: 15
+  },
+  date: {
+    fontSize: 26
+  },
+  card: {
+    flex: 0.9,
+    height: 100,
+    padding: 10,
+    backgroundColor: 'white',
+    marginRight: 15,
+  },
+  locked: {
+    backgroundColor: 'gray'
+  }
+});
 
 export default EntryListView;

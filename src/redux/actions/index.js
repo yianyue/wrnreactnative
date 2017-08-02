@@ -6,6 +6,7 @@
 export const ENTRIES_REQUEST = 'ENTRIES_REQUEST';
 export const ENTRIES_REQUEST_SUCCESS = 'ENTRIES_REQUEST_SUCCESS';
 export const ENTRIES_REQUEST_FAIL = 'ENTRIES_REQUEST_FAIL';
+export const UPDATE_LIST_ENTRY = 'UPDATE_LIST_ENTRY';
 
 /************************************************************
 * Entry Detail

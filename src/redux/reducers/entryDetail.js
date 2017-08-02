@@ -8,8 +8,7 @@ import {
 const initialEntry = {
   loading: false,
   updating: false,
-  error: null,
-  data: null
+  error: null
 };
 
 const initialState = {};

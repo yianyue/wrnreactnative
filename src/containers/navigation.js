@@ -10,8 +10,14 @@ import Profile from './Profile';
 
 import Login from './Login';
 
+import { MAIN_COLOR } from '../styleConstants';
+
 const defaultNavigationOptions = {
-  title: 'Write Right Now!'
+  title: 'Write Now!',
+  headerStyle: {
+    backgroundColor: MAIN_COLOR
+  },
+  headerTintColor: '#fff'
 };
 
 const Authenticated = StackNavigator({

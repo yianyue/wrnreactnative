@@ -6,6 +6,10 @@ import {
   UPDATE_CONTENT, UPDATE_CONTENT_SUCCESS, UPDATE_CONTENT_FAIL
 } from './index';
 
+import { updateListEntry } from './entry';
+
+import { countWords } from '../../helpers';
+
 const apiClient = new ApiClient();
 
 function requestEntry (id) {
@@ -45,32 +49,26 @@ function getEntryDetail (id) {
   };
 }
 
-function countWords (str) {
-  return str.trim().split(/\s+/).length;
-}
-
-const DEBOUNCE_TIME_IN_MS = 1000;
-
 // optimistic update
 function updateContent (id, content) {
-  console.log('updateContent', id);
   return (dispatch, getState) => {
     const { session: {user} } = getState();
+    const word_count = countWords(content);
     dispatch({
       type: UPDATE_CONTENT,
       id,
       data: {
         content,
-        word_count: countWords(content)
+        word_count
       }
     });
     apiClient.put('/entries/' + id, {data: {data: {content}}}, user)
       .then(result => {
-        console.log('update result', result);
         dispatch({
           type: UPDATE_CONTENT_SUCCESS,
           result
         });
+        dispatch(updateListEntry(result));
       }).catch(error => {
         dispatch({
           type: UPDATE_CONTENT_FAIL,

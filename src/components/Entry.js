@@ -10,7 +10,13 @@ import {
   Text
 } from 'react-native';
 
+import moment from 'moment';
+
 import EntryInput from './EntryInput';
+
+const isToday = (time) => {
+  return moment().isSame(moment(time), 'day');
+};
 
 export default class Entry extends Component {
   static propTypes = {
@@ -23,10 +29,12 @@ export default class Entry extends Component {
   }
 
   render () {
-    const value = this.props.entry && this.props.entry.content ? this.props.entry.content : '';
+    const { entry = {} } = this.props;
+    const value = entry.content ? entry.content : '';
+    const editable = entry.updated_at ? isToday(entry.updated_at) : false;
     return (
       <View style={{flex: 1}}>
-        <EntryInput value={value} onChangeText={this._handleUpdate} />
+        <EntryInput value={value} onChangeText={this._handleUpdate} editable={editable} />
       </View>
     );
   }
